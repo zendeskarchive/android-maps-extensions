@@ -10,9 +10,7 @@ buildscript {
 apply plugin: 'android-library'
 
 dependencies {
-  compile project(':google-play-services')
-  compile project(':android-support-v4')
-  compile fileTree(dir: 'libs', include: '*.jar')
+    compile fileTree(dir: 'libs', include: '*.jar')
 }
 
 android {
