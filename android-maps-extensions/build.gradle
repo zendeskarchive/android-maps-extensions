@@ -1,16 +1,7 @@
-buildscript {
-  repositories {
-    mavenCentral()
-  }
-  dependencies {
-    classpath 'com.android.tools.build:gradle:1.0.0'
-  }
-}
-
 apply plugin: 'android-library'
 
 dependencies {
-  compile project(':android-support-v4')
+  compile 'com.android.support:support-v4:21.0.0-getbase'
   compile ('com.google.android.gms:play-services:6.5.87') {
     exclude module: 'support-v4'
   }
@@ -37,3 +28,10 @@ android {
     }
   }
 }
+
+apply from: '../../gradle-mvn-publish.gradle'
+
+    task androidJavadocs(type: Javadoc, overwrite: true) {
+        source = []
+        classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    }
