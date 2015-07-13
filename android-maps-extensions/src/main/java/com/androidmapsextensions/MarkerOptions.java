@@ -17,12 +17,14 @@ package com.androidmapsextensions;
 
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.common.base.Supplier;
 
 public class MarkerOptions {
 
     public final com.google.android.gms.maps.model.MarkerOptions real = new com.google.android.gms.maps.model.MarkerOptions();
     private Object data;
     private int clusterGroup;
+    private Supplier<BitmapDescriptor> mIconSupplier;
 
     public MarkerOptions alpha(float alpha) {
         real.alpha(alpha);
@@ -78,6 +80,10 @@ public class MarkerOptions {
         return real.getIcon();
     }
 
+    public Supplier<BitmapDescriptor> getIconSupplier() {
+        return mIconSupplier;
+    }
+
     public float getInfoWindowAnchorU() {
         return real.getInfoWindowAnchorU();
     }
@@ -104,6 +110,11 @@ public class MarkerOptions {
 
     public MarkerOptions icon(BitmapDescriptor icon) {
         real.icon(icon);
+        return this;
+    }
+
+    public MarkerOptions iconSupplier(Supplier<BitmapDescriptor> supplier) {
+        mIconSupplier = supplier;
         return this;
     }
 

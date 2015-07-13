@@ -15,11 +15,11 @@
  */
 package com.androidmapsextensions.lazy;
 
+import com.androidmapsextensions.MarkerOptions;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 public class LazyMarker {
 
@@ -253,7 +253,10 @@ public class LazyMarker {
     }
 
     private void createMarker(GoogleMap map, MarkerOptions options, OnMarkerCreateListener listener) {
-        marker = map.addMarker(options);
+        if (options.getIconSupplier() != null) {
+            options.real.icon(options.getIconSupplier().get());
+        }
+        marker = map.addMarker(options.real);
         if (listener != null) {
             listener.onMarkerCreate(this);
         }
@@ -273,6 +276,7 @@ public class LazyMarker {
         copy.draggable(options.isDraggable());
         copy.flat(options.isFlat());
         copy.icon(options.getIcon());
+        copy.iconSupplier(options.getIconSupplier());
         copy.infoWindowAnchor(options.getInfoWindowAnchorU(), options.getInfoWindowAnchorV());
         copy.position(options.getPosition());
         copy.rotation(options.getRotation());

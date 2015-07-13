@@ -55,7 +55,7 @@ class MarkerManager implements OnMarkerCreateListener {
     public Marker addMarker(MarkerOptions markerOptions) {
         boolean visible = markerOptions.isVisible();
         markerOptions.visible(false);
-        DelegatingMarker marker = createMarker(markerOptions.real);
+        DelegatingMarker marker = createMarker(markerOptions);
         setExtendedOptions(marker, markerOptions);
         clusteringStrategy.onAdd(marker);
         marker.setVisible(visible);
@@ -68,7 +68,7 @@ class MarkerManager implements OnMarkerCreateListener {
         marker.setData(markerOptions.getData());
     }
 
-    private DelegatingMarker createMarker(com.google.android.gms.maps.model.MarkerOptions markerOptions) {
+    private DelegatingMarker createMarker(MarkerOptions markerOptions) {
         LazyMarker realMarker = new LazyMarker(factory.getMap(), markerOptions, this);
         DelegatingMarker marker = new DelegatingMarker(realMarker, this);
         markers.put(realMarker, marker);
